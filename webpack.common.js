@@ -2,19 +2,27 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-    entry : "./src/index.js",    
+    entry : {
+        main : "./src/index.js",
+        vendor : "./src/vendor.js"
+    },    
     module : {
         rules : [
+            
             {
-                test : /\.scss$/,
-                use : [
-                    // Creates `style` nodes from JS strings
-                    'style-loader',
-                    // Translates CSS into CommonJS
-                    'css-loader',
-                    // Compiles Sass to CSS
-                    'sass-loader',
-                ]
+                test : /\.html$/,
+                use : ["html-loader"]
+            },
+            {
+                test : /\.(png|svg|jpg|jpeg|gif)$/,
+                use : {
+                    loader : "file-loader",
+                    options: {
+                        name : "[name].[hash].[ext]",
+                        outputPath : "images"
+                    }
+                    
+                }
             }
         ]
     },
